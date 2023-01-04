@@ -1,0 +1,35 @@
+{
+  "name": "cybertoken",
+  "version": "1.0.0",
+  "description": "A token format for APIs inspired by the GitHub's API token format.",
+  "author": "Niklas Mollenhauer",
+  "license": "ISC",
+  "type": "module",
+  "main": "built/index.js",
+  "bin": "built/cli.js",
+  "scripts": {
+    "compile": "tsc",
+    "clean": "rimraf built",
+    "docs": "typedoc",
+    "test": "tsc --noEmit && vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest watch --coverage",
+    "prepare": "npm run clean && npm run compile"
+  },
+  "keywords": [
+    "token",
+    "api",
+    "format",
+    "secret",
+    "generator"
+  ],
+  "dependencies": {
+    "base-x": "^4.0.0"
+  },
+  "devDependencies": {
+    "@vitest/coverage-c8": "^0.26.3",
+    "rimraf": "^3.0.2",
+    "typedoc": "^0.23.23",
+    "vitest": "^0.26.3"
+  }
+}
