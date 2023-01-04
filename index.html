@@ -1,0 +1,93 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>cybertoken</title><meta name="description" content="Documentation for cybertoken"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">cybertoken</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>cybertoken</h2></div>
+<div class="tsd-panel tsd-typography">
+<a href="#cybertoken--" id="cybertoken--" style="color: inherit; text-decoration: none;">
+  <h1>cybertoken <a href="https://github.com/nikeee/cybertoken/actions/workflows/CI.yaml"><img src="https://github.com/nikeee/cybertoken/actions/workflows/CI.yaml/badge.svg" alt="CI"></a> <a href="https://www.npmjs.com/package/cybertoken"><img src="https://img.shields.io/npm/v/cybertoken" alt="npm badge"></a></h1>
+</a>
+<p>A token format for APIs inspired by the GitHub&#39;s API token format. Think of it as a standardized password format with some handy properties.</p>
+
+<a href="#what-is-this" id="what-is-this" style="color: inherit; text-decoration: none;">
+  <h2>What is this?</h2>
+</a>
+<p>GitHub changed their token format a while back and explained the reasons in an insightful blog post[^1].</p>
+<p>tl;dr:</p>
+<ol>
+<li>Having a defined format for secrets is good for <strong>automated secret scanning</strong>.</li>
+<li>Putting some prefix to a secret makes <strong>debugging easier</strong> when looking at some random token.</li>
+<li>Using <code>_</code> instead of <code>-</code> is better for double-click <strong>text selection</strong>: <code>abc_def</code> vs <code>abc-def</code>.</li>
+<li>Using Base62[^2] instead of Base64 results in <strong>less encoding errors</strong> when passing the token somewhere.</li>
+<li><strong>CRC32 checksum</strong> at the end of the token for faster offline syntactic check of a token (used as a heuristic, not for security).</li>
+</ol>
+<p>These properties make this token format suitable for things like API tokens, which is what cybertoken is.</p>
+
+<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+  <h2>Usage</h2>
+</a>
+<p>Install:</p>
+<pre><code class="language-sh"><span class="hl-0">npm install cybertoken</span>
+</code></pre>
+<pre><code class="language-js"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">createTokenGenerator</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&quot;cybertoken&quot;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">apiTokenGenerator</span><span class="hl-0"> = </span><span class="hl-6">createTokenGenerator</span><span class="hl-0">({</span><br/><span class="hl-0">    </span><span class="hl-2">prefixWithoutUnderscore:</span><span class="hl-0"> </span><span class="hl-3">&quot;contoso&quot;</span><span class="hl-0">,</span><br/><span class="hl-0">});</span><br/><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">token</span><span class="hl-0"> = </span><span class="hl-2">apiTokenGenerator</span><span class="hl-0">.</span><span class="hl-6">generateToken</span><span class="hl-0">();</span><br/><span class="hl-7">// Securely hash `token` and save it in your database. Return `token` to the user once.</span><br/><br/><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-6">log</span><span class="hl-0">(</span><span class="hl-2">token</span><span class="hl-0">);</span><br/><span class="hl-7">// contoso_77IpM9bYZBuT0HqRi4aK6JT2fg2wkKaNMfpxzHnwLrduct</span>
+</code></pre>
+
+<a href="#bonus" id="bonus" style="color: inherit; text-decoration: none;">
+  <h3>Bonus</h3>
+</a>
+<p>You can also use cybertokens as passwords. If you use GitHub, you can set up a <a href="https://docs.github.com/en/enterprise-cloud@latest/code-security/secret-scanning/defining-custom-patterns-for-secret-scanning">custom secret scanning pattern</a> that will prevent anyone from pushing anything that looks like a cybertoken that your org uses.</p>
+<p>For example, use this pattern for Cybertokens with the prefix <code>contosopass</code>:</p>
+<pre><code class="language-regex">contosopass_[0-9A-Za-z]{10,}
+</code></pre>
+
+<a href="#anatomy" id="anatomy" style="color: inherit; text-decoration: none;">
+  <h2>Anatomy</h2>
+</a>
+<p>This is what a cybertoken consists of:</p>
+<pre><code><span class="hl-0">  </span><span class="hl-2">prefix</span><span class="hl-0">        </span><span class="hl-6">base62</span><span class="hl-0">( </span><span class="hl-2">n</span><span class="hl-0">-</span><span class="hl-2">bytes</span><span class="hl-0"> + </span><span class="hl-6">crc32</span><span class="hl-0">( </span><span class="hl-2">n</span><span class="hl-0">-</span><span class="hl-2">bytes</span><span class="hl-0"> ) )</span><br/><span class="hl-0">┌────────┐ ┌────────────────────────────────────────────┐</span><br/><span class="hl-2">myapitoken_77IpM9bYZBuT0HqRi4aK6JT2fg2wkKaNMfpxzHnwLrduct</span>
+</code></pre>
+<p>Explanation:</p>
+<ul>
+<li><code>n-bytes</code> are <code>n</code> random bytes, but at least 21 (default: 30), generated by a secure random source</li>
+<li>The bytes are concatenated with their CRC32 sum before base62 encoding</li>
+<li>base62 alphabet used: <code>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</code></li>
+</ul>
+<p>[^1]: GitHub&#39;s blog post covering this: <a href="https://github.blog/2021-04-05-behind-githubs-new-authentication-token-formats">https://github.blog/2021-04-05-behind-githubs-new-authentication-token-formats</a>
+[^2]: More info in Base62: <a href="https://en.wikipedia.org/wiki/Base62">https://en.wikipedia.org/wiki/Base62</a></p>
+</div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">cybertoken</a>
+<ul></ul></li></ul></div></details></nav>
+<nav class="tsd-navigation secondary menu-sticky">
+<ul>
+<li class="tsd-kind-interface"><a href="interfaces/TokenGeneratorOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-interface)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-256-path"></rect><path d="M9.51 16V15.016H11.298V8.224H9.51V7.24H14.19V8.224H12.402V15.016H14.19V16H9.51Z" fill="var(--color-text)" id="icon-256-text"></path></svg>Token<wbr/>Generator<wbr/>Options</a></li>
+<li class="tsd-kind-function"><a href="functions/createTokenGenerator.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-64-path"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)" id="icon-64-text"></path></svg>create<wbr/>Token<wbr/>Generator</a></li></ul></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script></body></html>
