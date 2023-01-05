@@ -11,6 +11,8 @@ tsconfig.json
 
 # Make sure js files always get included
 !*.js
+# However, we don't want to include tests
+*.test.js
 
 # No CI/Editor-Specific files
 .editorconfig
