@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { createTokenGenerator } from "./index.js";
 
 const prefixWithoutUnderscore =
