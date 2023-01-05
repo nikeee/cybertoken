@@ -14,8 +14,9 @@ tsconfig.json
 
 # No CI/Editor-Specific files
 .editorconfig
+.prettierrc.json
 .vscode/
-.travis.yml
+.github/
 
 # No raw ts source + tests
 src/
