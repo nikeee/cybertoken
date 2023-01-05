@@ -1,4 +1,4 @@
-# cybertoken [![CI](https://github.com/nikeee/cybertoken/actions/workflows/CI.yaml/badge.svg)](https://github.com/nikeee/cybertoken/actions/workflows/CI.yaml) [![npm badge](https://img.shields.io/npm/v/cybertoken)](https://www.npmjs.com/package/cybertoken)
+# cybertoken [![CI](https://github.com/nikeee/cybertoken/actions/workflows/CI.yaml/badge.svg)](https://github.com/nikeee/cybertoken/actions/workflows/CI.yaml) [![CD](https://github.com/nikeee/cybertoken/actions/workflows/CD.yaml/badge.svg)](https://github.com/nikeee/cybertoken/actions/workflows/CI.yaml) [![npm badge](https://img.shields.io/npm/v/cybertoken)](https://www.npmjs.com/package/cybertoken)
 
 A token format for APIs inspired by the GitHub's API token format. Think of it as a standardized password format with some handy properties. Intended for API token and password generation.
 
