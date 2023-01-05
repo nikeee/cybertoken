@@ -3,9 +3,9 @@ name: CD
 on:
   push:
     branches:
-    - "!*"
+      - "!*"
     tags:
-    - "v*"
+      - "v*"
 
 jobs:
   test:
@@ -71,6 +71,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19.x
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
       - run: npm ci
       - run: npm run compile
       - run: npm publish
