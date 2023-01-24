@@ -27,7 +27,7 @@
     "base-x": "^4.0.0"
   },
   "devDependencies": {
-    "@vitest/coverage-c8": "^0.27.0",
+    "@vitest/coverage-c8": "^0.28.1",
     "rimraf": "^4.0.4",
     "typedoc": "^0.23.23",
     "vitest": "^0.28.1"
