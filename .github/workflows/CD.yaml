@@ -69,6 +69,10 @@ jobs:
     needs:
       - docs-deploy
 
+    permissions:
+      contents: read
+      id-token: write
+     
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -78,6 +82,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run compile
-      - run: npm publish
+      - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
