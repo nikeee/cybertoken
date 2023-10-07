@@ -3,8 +3,7 @@ import { base62, version } from "./constants.js";
 import { getTokenPattern, parseTokenData } from "./parse.js";
 
 // Node.js seems to have problems with a global crypto module (probably it has its own crypto module)
-const cryptoServices =
-  globalThis.crypto ?? (require("node:crypto").webcrypto as Crypto);
+const cryptoServices = globalThis.crypto;
 
 export interface TokenGeneratorOptions {
   /**
