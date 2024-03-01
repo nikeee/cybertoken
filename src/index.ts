@@ -20,7 +20,12 @@ export interface TokenGeneratorOptions {
   entropyBytes?: number;
 }
 
-export function createTokenGenerator(options: TokenGeneratorOptions) {
+export interface TokenGenerator {
+  generateToken: () => string;
+  isTokenString: (value: unknown) => boolean;
+}
+
+export function createTokenGenerator(options: TokenGeneratorOptions): TokenGenerator {
   if (!options.prefixWithoutUnderscore) {
     throw new Error(
       "The `prefixWithoutUnderscore` option is required and must not be an empty string."
