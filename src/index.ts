@@ -20,11 +20,26 @@ export interface TokenGeneratorOptions {
   entropyBytes?: number;
 }
 
+/** Instance that can be used and passed around to generate cybertokens. */
 export interface TokenGenerator {
+  /**
+   * Generates a new cybertoken in the format `<prefixWithoutUnderscore>_<token-data>`
+   *
+   * @remarks As the token generation uses cryptographically secure random numbers, keep in mind that generating a large amount of tokens will block the entire application for a short amount of time (until the entropy pool is filled again).
+   * This can lead to a Denial of Service (DoS) attack, so you might want to limit the amount of tokens that can be generated in a short amount of time.
+   */
   generateToken: () => string;
+  /**
+   * Function to check if a token is syntactically valid. **Not** used for token validation.
+   * You can use this for secret scanning or as a heuristic/optimization before asking some backend whether the token is valid.
+   *
+   * @param value The token candidate to check
+   * @returns `true` if the token is syntactically valid, `false` otherwise.
+   */
   isTokenString: (value: unknown) => boolean;
 }
 
+/** Creates a new {@link TokenGenerator}. */
 export function createTokenGenerator(options: TokenGeneratorOptions): TokenGenerator {
   if (!options.prefixWithoutUnderscore) {
     throw new Error(
