@@ -5,6 +5,7 @@ import { getTokenPattern, parseTokenData } from "./parse.js";
 // Node.js seems to have problems with a global crypto module (probably it has its own crypto module)
 const cryptoServices = globalThis.crypto;
 
+/** Options for creating a new generator with {@link createTokenGenerator}. */
 export interface TokenGeneratorOptions {
   /**
    * The prefix of the token without the underscore. Prefer short prefixes.
@@ -33,13 +34,16 @@ export interface TokenGenerator {
    * Function to check if a token is syntactically valid. **Not** used for token validation.
    * You can use this for secret scanning or as a heuristic/optimization before asking some backend whether the token is valid.
    *
-   * @param value The token candidate to check
+   * @param {boolean} value The token candidate to check
    * @returns `true` if the token is syntactically valid, `false` otherwise.
    */
   isTokenString: (value: unknown) => boolean;
 }
 
-/** Creates a new {@link TokenGenerator}. */
+/**
+ * Creates a new {@link TokenGenerator}.
+ * @param {TokenGeneratorOptions} options Options bag.
+ */
 export function createTokenGenerator(options: TokenGeneratorOptions): TokenGenerator {
   if (!options.prefixWithoutUnderscore) {
     throw new Error(
@@ -97,7 +101,7 @@ export function createTokenGenerator(options: TokenGeneratorOptions): TokenGener
    * Function to check if a token is syntactically valid. **Not** used for token validation.
    * You can use this for secret scanning or as a heuristic/optimization before asking some backend whether the token is valid.
    *
-   * @param value The token candidate to check
+   * @param {boolean} value The token candidate to check
    * @returns `true` if the token is syntactically valid, `false` otherwise.
    */
   function isTokenString(value: unknown): boolean {
