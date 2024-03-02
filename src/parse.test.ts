@@ -1,9 +1,9 @@
-import { test, expect } from "vitest";
+import { expect, test } from "vitest";
 
-import { parseTokenData } from "./parse.js";
+import { type TokenContents, parseTokenData } from "./parse.js";
 
 test("Parse token contents", () => {
-	let contents;
+	let contents: TokenContents | undefined;
 
 	contents = parseTokenData("test_R67NJs98Lvg5o42CanYRTirswpki3SAsJYbNiDwHd");
 	expect(contents).toBeUndefined();

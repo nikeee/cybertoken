@@ -50,7 +50,7 @@ const table = new Uint32Array([
 export default function crc32(inputBuffer: Uint8Array): Uint8Array {
 	const ds = new Uint8Array(inputBuffer);
 	let crc = 0 ^ -1;
-	for (var i = 0; i < ds.length; i++) {
+	for (let i = 0; i < ds.length; i++) {
 		crc = (crc >>> 8) ^ table[(crc ^ ds[i]) & 0xff];
 	}
 

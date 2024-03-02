@@ -1,5 +1,5 @@
-import crc32 from "./crc32.js";
 import { base62, version } from "./constants.js";
+import crc32 from "./crc32.js";
 import { getTokenPattern, parseTokenData } from "./parse.js";
 
 // Node.js seems to have problems with a global crypto module (probably it has its own crypto module)
@@ -53,7 +53,7 @@ export function createTokenGenerator(
 		);
 	}
 
-	const prefixWithUnderscore = options.prefixWithoutUnderscore + "_";
+	const prefixWithUnderscore = `${options.prefixWithoutUnderscore}_`;
 	const tokenPattern = getTokenPattern(prefixWithUnderscore);
 
 	const tokenSecretByteCount = options.entropyBytes ?? 22;

@@ -1,5 +1,5 @@
-import crc32 from "./crc32.js";
 import { alphabet, base62, version } from "./constants.js";
+import crc32 from "./crc32.js";
 
 // TODO: Secret scanner to search for tokens
 
