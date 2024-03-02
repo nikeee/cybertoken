@@ -1,3 +1,21 @@
 {
-  "cSpell.words": ["cybertoken", "cybertokens", "parens", "contoso"]
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "package-lock.json, .npmrc",
+    "*.ts": "$(capture).test.ts"
+  },
+	"editor.formatOnSaveMode": "modificationsIfAvailable",
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+  "cSpell.words": [
+    "cybertoken",
+    "cybertokens",
+    "parens",
+    "contoso"
+  ]
 }
