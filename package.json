@@ -14,7 +14,9 @@
   "scripts": {
     "compile": "tsc",
     "clean": "rimraf built",
+    "ci": "tsc --noEmit && biome ci ./src",
     "docs": "typedoc",
+    "format": "biome format --write ./src",
     "test": "tsc --noEmit && vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest watch --coverage",
@@ -31,6 +33,7 @@
     "base-x": "^4.0.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.5.3",
     "@types/node": "^20.10.5",
     "@vitest/coverage-v8": "^1.1.0",
     "rimraf": "^5.0.5",
