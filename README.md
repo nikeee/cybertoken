@@ -24,6 +24,11 @@ Install:
 npm install cybertoken
 ```
 
+Also available on JSR:
+```sh
+npx jsr add @cybertoken/cybertoken
+```
+
 ```js
 import { createTokenGenerator } from "cybertoken";
 
