@@ -4,16 +4,16 @@ import { alphabet, base62, version } from "./constants.js";
 // TODO: Secret scanner to search for tokens
 
 export function getTokenPattern(prefixWithUnderscore: string): RegExp {
-  return new RegExp(`^${prefixWithUnderscore}[${alphabet}]+$`);
+	return new RegExp(`^${prefixWithUnderscore}[${alphabet}]+$`);
 }
 
 export interface TokenContents {
-  prefixWithoutUnderscore: string;
-  secret: Uint8Array;
-  version: number;
-  suppliedChecksum: Uint8Array;
-  actualChecksum: Uint8Array;
-  isSyntacticallyValid: boolean;
+	prefixWithoutUnderscore: string;
+	secret: Uint8Array;
+	version: number;
+	suppliedChecksum: Uint8Array;
+	actualChecksum: Uint8Array;
+	isSyntacticallyValid: boolean;
 }
 
 /**
@@ -22,77 +22,77 @@ export interface TokenContents {
  * You should treat the token contents as a black box.
  */
 export function parseTokenData(token: string): TokenContents | undefined {
-  if (!token.includes("_")) {
-    return undefined;
-  }
+	if (!token.includes("_")) {
+		return undefined;
+	}
 
-  const splitData = token.split("_");
-  if (splitData.length !== 2) {
-    return undefined;
-  }
+	const splitData = token.split("_");
+	if (splitData.length !== 2) {
+		return undefined;
+	}
 
-  const [prefix, encodedTokenData] = splitData;
+	const [prefix, encodedTokenData] = splitData;
 
-  const secretWithVersionAndChecksum = base62.decode(encodedTokenData);
-  if (
-    !secretWithVersionAndChecksum ||
-    secretWithVersionAndChecksum.length <= 4
-  ) {
-    return undefined;
-  }
+	const secretWithVersionAndChecksum = base62.decode(encodedTokenData);
+	if (
+		!secretWithVersionAndChecksum ||
+		secretWithVersionAndChecksum.length <= 4
+	) {
+		return undefined;
+	}
 
-  // We always assume that the buffer will have 32 bits CRC at the end
-  // That way, we can later make the secret part larger or smaller
-  const suppliedChecksum = secretWithVersionAndChecksum.slice(
-    secretWithVersionAndChecksum.length - 4
-  );
+	// We always assume that the buffer will have 32 bits CRC at the end
+	// That way, we can later make the secret part larger or smaller
+	const suppliedChecksum = secretWithVersionAndChecksum.slice(
+		secretWithVersionAndChecksum.length - 4,
+	);
 
-  if (suppliedChecksum.length !== 4) {
-    return undefined;
-  }
+	if (suppliedChecksum.length !== 4) {
+		return undefined;
+	}
 
-  const secretAndVersionBuffer = secretWithVersionAndChecksum.slice(
-    0,
-    secretWithVersionAndChecksum.length - 4
-  );
-  const actualChecksum = crc32(secretAndVersionBuffer);
+	const secretAndVersionBuffer = secretWithVersionAndChecksum.slice(
+		0,
+		secretWithVersionAndChecksum.length - 4,
+	);
+	const actualChecksum = crc32(secretAndVersionBuffer);
 
-  const isSyntacticallyValid =
-    secretAndVersionBuffer.length > 0 &&
-    buffersEqual(suppliedChecksum, actualChecksum);
+	const isSyntacticallyValid =
+		secretAndVersionBuffer.length > 0 &&
+		buffersEqual(suppliedChecksum, actualChecksum);
 
-  const suppliedVersion =
-    secretAndVersionBuffer[secretAndVersionBuffer.length - 1];
+	const suppliedVersion =
+		secretAndVersionBuffer[secretAndVersionBuffer.length - 1];
 
-  if (suppliedVersion !== version) {
-    return undefined; // version doesn't seem supported
-  }
+	if (suppliedVersion !== version) {
+		return undefined; // version doesn't seem supported
+	}
 
-  const secretPayload = secretAndVersionBuffer.slice(
-    0,
-    secretAndVersionBuffer.length - 1
-  );
+	const secretPayload = secretAndVersionBuffer.slice(
+		0,
+		secretAndVersionBuffer.length - 1,
+	);
 
-  return {
-    version: suppliedVersion,
-    prefixWithoutUnderscore: prefix,
-    secret: secretPayload,
-    suppliedChecksum,
-    actualChecksum,
-    isSyntacticallyValid,
-  };
+	return {
+		version: suppliedVersion,
+		prefixWithoutUnderscore: prefix,
+		secret: secretPayload,
+		suppliedChecksum,
+		actualChecksum,
+		isSyntacticallyValid,
+	};
 }
 
 function buffersEqual(a: Uint8Array, b: Uint8Array): boolean {
-  if (a.byteLength !== b.byteLength) {
-    return false;
-  }
+	if (a.byteLength !== b.byteLength) {
+		return false;
+	}
 
-  for (let i = 0; i < a.byteLength; ++i) {
-    if (a[i] !== b[i]) {
-      return false;
-    }
-  }
+	for (let i = 0; i < a.byteLength; ++i) {
+		if (a[i] !== b[i]) {
+			return false;
+		}
+	}
 
-  return true;
+	return true;
 }
