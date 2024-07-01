@@ -30,7 +30,7 @@
     "generator"
   ],
   "dependencies": {
-    "base-x": "^4.0.0"
+    "base-x": "^5.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
