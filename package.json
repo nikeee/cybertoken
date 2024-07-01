@@ -37,7 +37,7 @@
     "@types/node": "^20.10.5",
     "@vitest/coverage-v8": "^1.1.0",
     "rimraf": "^5.0.5",
-    "typedoc": "^0.25.4",
+    "typedoc": "^0.26.3",
     "vitest": "^1.1.0"
   },
   "engines": {
