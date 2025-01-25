@@ -1,5 +1,6 @@
 {
   "name": "@cybertoken/cybertoken",
   "version": "2.1.0",
-  "exports": "./src/index.ts"
+  "exports": "./src/index.ts",
+  "license": "ISC"
 }
