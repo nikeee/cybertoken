@@ -5,6 +5,15 @@ import { type TokenContents, parseTokenData } from "./parse.js";
 test("Parse token contents", () => {
 	let contents: TokenContents | undefined;
 
+	contents = parseTokenData("");
+	expect(contents).toBeUndefined();
+
+	contents = parseTokenData("test");
+	expect(contents).toBeUndefined();
+
+	contents = parseTokenData("_");
+	expect(contents).toBeUndefined();
+
 	contents = parseTokenData("test_R67NJs98Lvg5o42CanYRTirswpki3SAsJYbNiDwHd");
 	expect(contents).toBeUndefined();
 
