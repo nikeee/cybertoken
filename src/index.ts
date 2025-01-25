@@ -1,6 +1,6 @@
-import { base62, version } from "./constants.js";
 import crc32 from "./crc32.js";
-import { getTokenPattern, parseTokenData } from "./parse.js";
+import * as base62 from "./base62.js";
+import { getTokenPattern, parseTokenData, version } from "./parse.js";
 
 // Node.js seems to have problems with a global crypto module (probably it has its own crypto module)
 const cryptoServices = globalThis.crypto;

@@ -1,10 +1,12 @@
-import { alphabet, base62, version } from "./constants.js";
 import crc32 from "./crc32.js";
+import * as base62 from "./base62.js";
 
 // TODO: Secret scanner to search for tokens
 
+export const version = 0;
+
 export function getTokenPattern(prefixWithUnderscore: string): RegExp {
-	return new RegExp(`^${prefixWithUnderscore}[${alphabet}]+$`);
+	return new RegExp(`^${prefixWithUnderscore}[${base62.alphabet}]+$`);
 }
 
 export interface TokenContents {
