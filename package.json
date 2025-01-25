@@ -5,15 +5,15 @@
   "author": "Niklas Mollenhauer",
   "license": "ISC",
   "type": "module",
-  "main": "built/index.js",
-  "bin": "built/cli.js",
+  "main": "dist/index.js",
+  "bin": "dist/cli.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/nikeee/cybertoken.git"
   },
   "scripts": {
     "compile": "tsc",
-    "clean": "rimraf built",
+    "clean": "rimraf dist",
     "ci": "tsc --noEmit && biome ci ./src",
     "docs": "typedoc",
     "format": "biome format --write ./src",
