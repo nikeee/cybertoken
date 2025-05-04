@@ -6,6 +6,7 @@ import * as base62 from "./base62.js";
 export const version = 0;
 
 export function getTokenPattern(prefixWithUnderscore: string): RegExp {
+	// TODO: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/escape
 	return new RegExp(`^${prefixWithUnderscore}[${base62.alphabet}]+$`);
 }
 
