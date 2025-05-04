@@ -49,7 +49,7 @@ You can also use cybertokens as passwords. If you use GitHub, you can set up a [
 
 For example, use this pattern for Cybertokens with the prefix `contosopass`:
 
-```regex
+```
 contosopass_[0-9A-Za-z]{10,}
 ```
 
