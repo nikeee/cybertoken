@@ -1,6 +1,6 @@
 {
   "name": "cybertoken",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "A token format for APIs inspired by the GitHub's API token format.",
   "author": "Niklas Mollenhauer",
   "license": "ISC",
