@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 
-import { type TokenContents, parseTokenData } from "./parse.js";
+import { parseTokenData, type TokenContents } from "./parse.js";
 
 test("Parse token contents", () => {
 	let contents: TokenContents | undefined;
