@@ -10,6 +10,8 @@
     "removeComments": true,
     "newLine": "lf",
 
+    "erasableSyntaxOnly": true,
+
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
 
