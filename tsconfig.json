@@ -4,6 +4,7 @@
 
     "module": "ESNext",
     "moduleResolution": "node",
+    "noEmit": true,
 
     "declaration": true,
     "outDir": "dist",
@@ -11,6 +12,7 @@
     "newLine": "lf",
 
     "erasableSyntaxOnly": true,
+    "allowImportingTsExtensions": true,
 
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
