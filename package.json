@@ -7,19 +7,19 @@
   "type": "module",
   "main": "dist/index.js",
   "bin": "dist/cli.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/nikeee/cybertoken.git"
   },
   "scripts": {
-    "compile": "tsc",
-    "clean": "rimraf dist",
+    "build": "tsdown",
     "ci": "tsc --noEmit && biome ci ./src",
     "docs": "typedoc",
     "format": "biome format --write ./src",
     "test": "tsc --noEmit && node --test",
     "test:coverage": "node --test --experimental-test-coverage",
-    "prepublishOnly": "npm run clean && npm run compile"
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "token",
@@ -32,7 +32,7 @@
     "@biomejs/biome": "^2.2.3",
     "@types/node": "^24.3.1",
     "expect": "^30.2.0",
-    "rimraf": "^6.0.1",
+    "tsdown": "^0.15.12",
     "typedoc": "^0.28.12"
   },
   "engines": {
