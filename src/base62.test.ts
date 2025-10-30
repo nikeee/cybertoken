@@ -1,7 +1,7 @@
 import { describe, test } from "node:test";
 import { expect } from "expect";
 
-import { decode, encode } from "./base62.ts";
+import { decode, decodeUnsafe, encode } from "./base62.ts";
 
 describe("base62 roundtrip", () => {
 	function encodeText(value: string): Uint8Array {
@@ -43,6 +43,40 @@ describe("base62 roundtrip", () => {
 
 			expect(s).toEqual("00HBL");
 			expect(decode(s)).toEqual(data);
+		});
+	});
+
+	describe("parameter validation and exceptions", () => {
+		test("encode rejects non-ArrayBufferView types", () => {
+			expect(() => encode("not a buffer" as unknown as Uint8Array)).toThrow(
+				new Error(
+					"`source` has non-supported type. Provide `Uint8Array` or `ArrayBufferView`.",
+				),
+			);
+		});
+
+		test("encode accepts ArrayBufferView (DataView)", () => {
+			const buf = new ArrayBuffer(3);
+			new Uint8Array(buf).set([1, 2, 3]);
+
+			const dv = new DataView(buf);
+			const s = encode(dv);
+
+			expect(typeof s).toBe("string");
+			expect(decode(s)).toEqual(new Uint8Array([1, 2, 3]));
+		});
+
+		test("decodeUnsafe rejects non-string input", () => {
+			expect(() => decodeUnsafe(123 as unknown as string)).toThrow(
+				TypeError("Expected String"),
+			);
+		});
+
+		test("decode/decodeUnsafe handle invalid characters", () => {
+			expect(decodeUnsafe("!notbase62!")).toBeUndefined();
+			expect(() => decode("!notbase62!")).toThrow(
+				new Error("Failed to decode string"),
+			);
 		});
 	});
 });
