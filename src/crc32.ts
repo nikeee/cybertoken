@@ -1,5 +1,4 @@
 // Based on: https://stackoverflow.com/a/29416932
-// TODO: Tests
 
 const table = new Uint32Array([
 	0x00000000, 0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419, 0x706af48f,
