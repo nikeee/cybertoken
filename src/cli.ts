@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { createTokenGenerator } from "./index.js";
+import { createTokenGenerator } from "./index.ts";
 
 const prefixWithoutUnderscore =
 	process.argv[2] ?? process.env.CYBERTOKEN_PREFIX;

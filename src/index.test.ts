@@ -1,6 +1,7 @@
-import { expect, test } from "vitest";
+import { test } from "node:test";
+import { expect } from "expect";
 
-import { createTokenGenerator } from "./index.js";
+import { createTokenGenerator } from "./index.ts";
 
 test("Instance creation smoke test", () => {
 	createTokenGenerator({
@@ -10,8 +11,10 @@ test("Instance creation smoke test", () => {
 
 test("Instance creation expect prefix", () => {
 	// @ts-expect-error
-	expect(() => createTokenGenerator({})).toThrowError(
-		"The `prefixWithoutUnderscore` option is required and must not be an empty string.",
+	expect(() => createTokenGenerator({})).toThrow(
+		new Error(
+			"The `prefixWithoutUnderscore` option is required and must not be an empty string.",
+		),
 	);
 });
 
@@ -21,8 +24,10 @@ test("Instance creation expect proper byte count", () => {
 			prefixWithoutUnderscore: "a",
 			entropyBytes: -1,
 		}),
-	).toThrowError(
-		"The token secret byte count (`entropyBytes`) must be greater than 20.",
+	).toThrow(
+		new Error(
+			"The token secret byte count (`entropyBytes`) must be greater than 20.",
+		),
 	);
 
 	expect(() =>
@@ -30,8 +35,10 @@ test("Instance creation expect proper byte count", () => {
 			prefixWithoutUnderscore: "a",
 			entropyBytes: 0,
 		}),
-	).toThrowError(
-		"The token secret byte count (`entropyBytes`) must be greater than 20.",
+	).toThrow(
+		new Error(
+			"The token secret byte count (`entropyBytes`) must be greater than 20.",
+		),
 	);
 
 	expect(() =>
@@ -39,8 +46,10 @@ test("Instance creation expect proper byte count", () => {
 			prefixWithoutUnderscore: "a",
 			entropyBytes: 19,
 		}),
-	).toThrowError(
-		"The token secret byte count (`entropyBytes`) must be greater than 20.",
+	).toThrow(
+		new Error(
+			"The token secret byte count (`entropyBytes`) must be greater than 20.",
+		),
 	);
 
 	expect(() =>
@@ -48,8 +57,10 @@ test("Instance creation expect proper byte count", () => {
 			prefixWithoutUnderscore: "a",
 			entropyBytes: 20,
 		}),
-	).toThrowError(
-		"The token secret byte count (`entropyBytes`) must be greater than 20.",
+	).toThrow(
+		new Error(
+			"The token secret byte count (`entropyBytes`) must be greater than 20.",
+		),
 	);
 
 	createTokenGenerator({

@@ -17,9 +17,8 @@
     "ci": "tsc --noEmit && biome ci ./src",
     "docs": "typedoc",
     "format": "biome format --write ./src",
-    "test": "tsc --noEmit && vitest run",
-    "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest watch --coverage",
+    "test": "tsc --noEmit && node --test",
+    "test:coverage": "node --test --experimental-test-coverage",
     "prepublishOnly": "npm run clean && npm run compile"
   },
   "keywords": [
@@ -32,10 +31,9 @@
   "devDependencies": {
     "@biomejs/biome": "^2.2.3",
     "@types/node": "^24.3.1",
-    "@vitest/coverage-v8": "^3.2.4",
+    "expect": "^30.2.0",
     "rimraf": "^6.0.1",
-    "typedoc": "^0.28.12",
-    "vitest": "^3.2.4"
+    "typedoc": "^0.28.12"
   },
   "engines": {
     "node": ">=20"
