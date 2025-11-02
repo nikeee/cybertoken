@@ -37,3 +37,4 @@ jsr.json
 
 coverage/
 docs/
+tsdown.config.ts
