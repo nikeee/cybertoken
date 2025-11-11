@@ -5,9 +5,9 @@
   "author": "Niklas Mollenhauer",
   "license": "ISC",
   "type": "module",
-  "main": "dist/index.js",
-  "bin": "dist/cli.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/index.mjs",
+  "bin": "dist/cli.mjs",
+  "types": "dist/index.d.mts",
   "repository": {
     "type": "git",
     "url": "https://github.com/nikeee/cybertoken.git"
@@ -29,10 +29,10 @@
     "generator"
   ],
   "devDependencies": {
-    "@biomejs/biome": "^2.3.2",
-    "@types/node": "^24.9.2",
+    "@biomejs/biome": "^2.3.5",
+    "@types/node": "^24.10.0",
     "expect": "^30.2.0",
-    "tsdown": "^0.15.12",
+    "tsdown": "^0.16.2",
     "typedoc": "^0.28.14"
   },
   "engines": {
