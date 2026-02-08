@@ -106,13 +106,20 @@ test("Instance creation expect proper byte count", () => {
 	});
 });
 
-test("Roundtrip syntax check", async () => {
+test("Roundtrip syntax check", () => {
 	const g = createTokenGenerator({ prefixWithoutUnderscore: "test" });
-	const token = await g.generateToken();
+	const token = g.generateToken();
 	expect(g.isTokenString(token)).toBe(true);
 });
 
-test("Non-happy paths in isTokenString", async () => {
+test("Snapshot", () => {
+	const g = createTokenGenerator({ prefixWithoutUnderscore: "test" });
+	expect(g.generateToken()).toBe("test_W1VEkCxCAn6JoEgLqH1YRNfMDjuPSNrTQcBk");
+	expect(g.generateToken()).toBe("test_WmmDcS1YbcSbzlVYAi07DGqfwLuHCp04w0yQ");
+	expect(g.generateToken()).toBe("test_XY3CUh5v2RouBIKkV8yfzA1zexu8xG8jUZHI");
+});
+
+test("Non-happy paths in isTokenString", () => {
 	const g = createTokenGenerator({ prefixWithoutUnderscore: "test" });
 
 	// @ts-expect-error
