@@ -5,7 +5,7 @@ import { getTokenPattern, parseTokenData, version } from "./parse.ts";
 /** Options for creating a new generator with {@link createTokenGenerator}. */
 export interface TokenGeneratorOptions {
 	/**
-	 * The prefix of the token without the underscore. Prefer short prefixes.
+	 * The prefix of the token without the underscore. Prefer short prefixes. Can only contain chars `a-zA-Z0-9`.
 	 * See which prefixes GitHub uses:
 	 * https://github.blog/2021-04-05-behind-githubs-new-authentication-token-formats/
 	 */
@@ -37,7 +37,7 @@ export interface TokenGenerator {
 	isTokenString: (value: unknown) => boolean;
 }
 
-const prefixCheck = /^[a-zA-Z0-9_]+$/;
+const prefixCheck = /^[a-zA-Z0-9]+$/;
 
 /**
  * Creates a new {@link TokenGenerator}.

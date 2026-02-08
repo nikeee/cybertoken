@@ -66,12 +66,18 @@ describe("`prefixWithoutUnderscore` validation", () => {
 		expect(() =>
 			createTokenGenerator({ prefixWithoutUnderscore: "aBc123" }),
 		).not.toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo_bar" }),
-		).not.toThrow();
 	});
 
 	test("prefixWithoutUnderscore: disallowed characters", () => {
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "" }),
+		).toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "_" }),
+		).toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo_bar" }),
+		).toThrow();
 		expect(() =>
 			createTokenGenerator({ prefixWithoutUnderscore: "foo-bar" }),
 		).toThrow();
