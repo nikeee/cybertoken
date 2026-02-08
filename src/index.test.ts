@@ -1,5 +1,42 @@
-import { test } from "node:test";
+import { afterEach, beforeEach, test } from "node:test";
 import { expect } from "expect";
+
+class CountingRandom implements Crypto {
+	private state: number;
+	constructor(start: number) {
+		this.state = start;
+	}
+
+	getRandomValues<T extends ArrayBufferView>(arr: T): T {
+		const v = this.state & 0xff;
+		new Uint8Array(arr.buffer, arr.byteOffset, arr.byteLength).fill(v);
+		this.state++;
+		return arr;
+	}
+	// Required by Crypto interface, but not used in tests
+	get subtle(): SubtleCrypto {
+		throw new Error("Not implemented");
+	}
+	randomUUID(): `${string}-${string}-${string}-${string}-${string}` {
+		throw new Error("Not implemented");
+	}
+}
+
+const originalCrypto = globalThis.crypto;
+beforeEach(() => {
+	Object.defineProperty(globalThis, "crypto", {
+		configurable: true,
+		writable: true,
+		value: new CountingRandom(42),
+	});
+});
+afterEach(() => {
+	Object.defineProperty(globalThis, "crypto", {
+		configurable: true,
+		writable: true,
+		value: originalCrypto,
+	});
+});
 
 import { createTokenGenerator } from "./index.ts";
 
