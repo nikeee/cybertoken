@@ -2,9 +2,6 @@ import * as base62 from "./base62.ts";
 import crc32 from "./crc32.ts";
 import { getTokenPattern, parseTokenData, version } from "./parse.ts";
 
-// Node.js seems to have problems with a global crypto module (probably it has its own crypto module)
-const cryptoServices = globalThis.crypto;
-
 /** Options for creating a new generator with {@link createTokenGenerator}. */
 export interface TokenGeneratorOptions {
 	/**
@@ -80,7 +77,7 @@ export function createTokenGenerator(
 	 * This can lead to a Denial of Service (DoS) attack, so you might want to limit the amount of tokens that can be generated in a short amount of time.
 	 */
 	function generateTokenData(): Uint8Array {
-		const entropyWithVersion = cryptoServices.getRandomValues(
+		const entropyWithVersion = globalThis.crypto.getRandomValues(
 			new Uint8Array(tokenSecretByteCount + 1),
 		);
 
@@ -103,7 +100,7 @@ export function createTokenGenerator(
 	 * Function to check if a token is syntactically valid. **Not** used for token validation.
 	 * You can use this for secret scanning or as a heuristic/optimization before asking some backend whether the token is valid.
 	 *
-	 * @param {boolean} value The token candidate to check
+	 * @param {boolean} value The token candidate to check.
 	 * @returns `true` if the token is syntactically valid, `false` otherwise.
 	 */
 	function isTokenString(value: unknown): boolean {
