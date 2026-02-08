@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, test } from "node:test";
+import { afterEach, beforeEach, describe, test } from "node:test";
 import { expect } from "expect";
 
 class CountingRandom implements Crypto {
@@ -46,13 +46,63 @@ test("Instance creation smoke test", () => {
 	});
 });
 
-test("Instance creation expect prefix", () => {
-	// @ts-expect-error
-	expect(() => createTokenGenerator({})).toThrow(
-		new Error(
-			"The `prefixWithoutUnderscore` option is required and must not be an empty string.",
-		),
-	);
+describe("`prefixWithoutUnderscore` validation", () => {
+	test("Instance creation expect prefix", () => {
+		// @ts-expect-error
+		expect(() => createTokenGenerator({})).toThrow(
+			new Error(
+				"The `prefixWithoutUnderscore` option is required and must not be an empty string.",
+			),
+		);
+	});
+
+	test("prefixWithoutUnderscore: allowed characters", () => {
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "abc" }),
+		).not.toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "ABC" }),
+		).not.toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "aBc123" }),
+		).not.toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo_bar" }),
+		).not.toThrow();
+	});
+
+	test("prefixWithoutUnderscore: disallowed characters", () => {
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo-bar" }),
+		).toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo bar" }),
+		).toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo!" }),
+		).toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo@" }),
+		).toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo#" }),
+		).toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo$" }),
+		).toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo%" }),
+		).toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo/" }),
+		).toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo." }),
+		).toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo," }),
+		).toThrow();
+	});
 });
 
 test("Instance creation expect proper byte count", () => {

@@ -37,6 +37,8 @@ export interface TokenGenerator {
 	isTokenString: (value: unknown) => boolean;
 }
 
+const prefixCheck = /^[a-zA-Z0-9_]+$/;
+
 /**
  * Creates a new {@link TokenGenerator}.
  * @param {TokenGeneratorOptions} options Options bag.
@@ -47,6 +49,12 @@ export function createTokenGenerator(
 	if (!options.prefixWithoutUnderscore) {
 		throw new Error(
 			"The `prefixWithoutUnderscore` option is required and must not be an empty string.",
+		);
+	}
+
+	if (!prefixCheck.test(options.prefixWithoutUnderscore)) {
+		throw new Error(
+			"The `prefixWithoutUnderscore` option must only contain alphanumeric characters and underscores.",
 		);
 	}
 
