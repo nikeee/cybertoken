@@ -12,8 +12,8 @@ export interface TokenGeneratorOptions {
 	prefixWithoutUnderscore: string;
 
 	/**
-	 * Must at least be `21`.
-	 * @default 22 bytes like in the npm/GitHub token format
+	 * Must at least be `20` and at most `199`.
+	 * @default 20 bytes.
 	 */
 	entropyBytes?: number;
 }
@@ -61,10 +61,10 @@ export function createTokenGenerator(
 	const prefixWithUnderscore = `${options.prefixWithoutUnderscore}_`;
 	const tokenPattern = getTokenPattern(prefixWithUnderscore);
 
-	const tokenSecretByteCount = options.entropyBytes ?? 22;
-	if (tokenSecretByteCount <= 20) {
+	const tokenSecretByteCount = options.entropyBytes ?? 20;
+	if (tokenSecretByteCount < 20 || tokenSecretByteCount >= 200) {
 		throw new Error(
-			"The token secret byte count (`entropyBytes`) must be greater than 20.",
+			"The token secret byte count (`entropyBytes`) must be >= 20 and < 200.",
 		);
 	}
 
