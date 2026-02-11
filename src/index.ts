@@ -62,9 +62,9 @@ export function createTokenGenerator(
 	const tokenPattern = getTokenPattern(prefixWithUnderscore);
 
 	const tokenSecretByteCount = options.entropyBytes ?? 20;
-	if (tokenSecretByteCount < 20 || tokenSecretByteCount >= 200) {
+	if (tokenSecretByteCount < 20 || tokenSecretByteCount >= 100) {
 		throw new Error(
-			"The token secret byte count (`entropyBytes`) must be >= 20 and < 200.",
+			"The token secret byte count (`entropyBytes`) must be >= 20 and < 100.",
 		);
 	}
 

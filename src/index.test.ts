@@ -119,7 +119,7 @@ test("Instance creation expect proper byte count", () => {
 		}),
 	).toThrow(
 		new Error(
-			"The token secret byte count (`entropyBytes`) must be >= 20 and < 200.",
+			"The token secret byte count (`entropyBytes`) must be >= 20 and < 100.",
 		),
 	);
 
@@ -130,7 +130,7 @@ test("Instance creation expect proper byte count", () => {
 		}),
 	).toThrow(
 		new Error(
-			"The token secret byte count (`entropyBytes`) must be >= 20 and < 200.",
+			"The token secret byte count (`entropyBytes`) must be >= 20 and < 100.",
 		),
 	);
 
@@ -141,7 +141,7 @@ test("Instance creation expect proper byte count", () => {
 		}),
 	).toThrow(
 		new Error(
-			"The token secret byte count (`entropyBytes`) must be >= 20 and < 200.",
+			"The token secret byte count (`entropyBytes`) must be >= 20 and < 100.",
 		),
 	);
 
@@ -162,11 +162,11 @@ test("Roundtrip syntax check", () => {
 	expect(g.isTokenString(token)).toBe(true);
 });
 
-test("Snapshot", () => {
+test("Snapshot + default entropyBytes", () => {
 	const g = createTokenGenerator({ prefixWithoutUnderscore: "test" });
-	expect(g.generateToken()).toBe("test_W1VEkCxCAn6JoEgLqH1YRNfMDjuPSNrTQcBk");
-	expect(g.generateToken()).toBe("test_WmmDcS1YbcSbzlVYAi07DGqfwLuHCp04w0yQ");
-	expect(g.generateToken()).toBe("test_XY3CUh5v2RouBIKkV8yfzA1zexu8xG8jUZHI");
+	expect(g.generateToken()).toBe("test_1sSTYGlY7FpQhFcPUWjQcyfqQkW1oTDe5D");
+	expect(g.generateToken()).toBe("test_1vEOLndpANaPr8bqfaSnP8yYUL3GZu1Kg9");
+	expect(g.generateToken()).toBe("test_1y0J9KW6DVLP11bHqeCABJHGXvaVO2ngsf");
 });
 
 test("Non-happy paths in isTokenString", () => {
