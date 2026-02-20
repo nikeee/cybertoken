@@ -7,10 +7,10 @@
   },
   "editor.formatOnSaveMode": "modificationsIfAvailable",
   "[javascript]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "cSpell.words": ["cybertoken", "cybertokens", "parens", "contoso"]
 }
