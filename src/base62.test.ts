@@ -74,9 +74,7 @@ describe("base62 roundtrip", () => {
 
 		test("decode/decodeUnsafe handle invalid characters", () => {
 			expect(decodeUnsafe("!notbase62!")).toBeUndefined();
-			expect(() => decode("!notbase62!")).toThrow(
-				new Error("Failed to decode string"),
-			);
+			expect(() => decode("!notbase62!")).toThrow(new Error("Failed to decode string"));
 		});
 	});
 });

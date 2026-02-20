@@ -37,10 +37,7 @@ export function parseTokenData(token: string): TokenContents | undefined {
 	const [prefix, encodedTokenData] = splitData;
 
 	const secretWithVersionAndChecksum = base62.decode(encodedTokenData);
-	if (
-		!secretWithVersionAndChecksum ||
-		secretWithVersionAndChecksum.length <= 4
-	) {
+	if (!secretWithVersionAndChecksum || secretWithVersionAndChecksum.length <= 4) {
 		return undefined;
 	}
 
@@ -61,20 +58,15 @@ export function parseTokenData(token: string): TokenContents | undefined {
 	const actualChecksum = crc32(secretAndVersionBuffer);
 
 	const isSyntacticallyValid =
-		secretAndVersionBuffer.length > 0 &&
-		buffersEqual(suppliedChecksum, actualChecksum);
+		secretAndVersionBuffer.length > 0 && buffersEqual(suppliedChecksum, actualChecksum);
 
-	const suppliedVersion =
-		secretAndVersionBuffer[secretAndVersionBuffer.length - 1];
+	const suppliedVersion = secretAndVersionBuffer[secretAndVersionBuffer.length - 1];
 
 	if (suppliedVersion !== version) {
 		return undefined; // version doesn't seem supported
 	}
 
-	const secretPayload = secretAndVersionBuffer.slice(
-		0,
-		secretAndVersionBuffer.length - 1,
-	);
+	const secretPayload = secretAndVersionBuffer.slice(0, secretAndVersionBuffer.length - 1);
 
 	return {
 		version: suppliedVersion,

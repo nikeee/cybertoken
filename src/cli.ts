@@ -2,8 +2,7 @@
 
 import { createTokenGenerator } from "./index.ts";
 
-const prefixWithoutUnderscore =
-	process.argv[2] ?? process.env.CYBERTOKEN_PREFIX;
+const prefixWithoutUnderscore = process.argv[2] ?? process.env.CYBERTOKEN_PREFIX;
 
 if (!prefixWithoutUnderscore) {
 	console.error("Please specify a prefix for the token.");

@@ -48,9 +48,7 @@ describe("crc32 smoke tests", () => {
 	});
 
 	test("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", () => {
-		const data = encode(
-			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-		);
+		const data = encode("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
 		expect(crc32(data)).toEqual(new Uint8Array([0x1f, 0xc2, 0xe6, 0xd2]));
 	});
 

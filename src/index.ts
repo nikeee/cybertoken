@@ -43,9 +43,7 @@ const prefixCheck = /^[a-zA-Z0-9_]+$/;
  * Creates a new {@link TokenGenerator}.
  * @param {TokenGeneratorOptions} options Options bag.
  */
-export function createTokenGenerator(
-	options: TokenGeneratorOptions,
-): TokenGenerator {
+export function createTokenGenerator(options: TokenGeneratorOptions): TokenGenerator {
 	if (!options.prefixWithoutUnderscore) {
 		throw new Error(
 			"The `prefixWithoutUnderscore` option is required and must not be an empty string.",
@@ -66,9 +64,7 @@ export function createTokenGenerator(
 
 	const tokenSecretByteCount = options.entropyBytes ?? 20;
 	if (tokenSecretByteCount < 20 || tokenSecretByteCount >= 100) {
-		throw new Error(
-			"The token secret byte count (`entropyBytes`) must be >= 20 and < 100.",
-		);
+		throw new Error("The token secret byte count (`entropyBytes`) must be >= 20 and < 100.");
 	}
 
 	return {

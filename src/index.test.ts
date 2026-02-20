@@ -57,57 +57,25 @@ describe("`prefixWithoutUnderscore` validation", () => {
 	});
 
 	test("prefixWithoutUnderscore: allowed characters", () => {
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "abc" }),
-		).not.toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "ABC" }),
-		).not.toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "aBc123" }),
-		).not.toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "abc" })).not.toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "ABC" })).not.toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "aBc123" })).not.toThrow();
 	});
 
 	test("prefixWithoutUnderscore: disallowed characters", () => {
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "" }),
-		).toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "_" }),
-		).toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo-bar" }),
-		).toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo bar" }),
-		).toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo!" }),
-		).toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo@" }),
-		).toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo#" }),
-		).toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo$" }),
-		).toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo%" }),
-		).toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo/" }),
-		).toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo." }),
-		).toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo," }),
-		).toThrow();
-		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo_" }),
-		).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "" })).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "_" })).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "foo-bar" })).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "foo bar" })).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "foo!" })).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "foo@" })).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "foo#" })).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "foo$" })).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "foo%" })).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "foo/" })).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "foo." })).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "foo," })).toThrow();
+		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "foo_" })).toThrow();
 	});
 });
 
@@ -117,33 +85,21 @@ test("Instance creation expect proper byte count", () => {
 			prefixWithoutUnderscore: "a",
 			entropyBytes: -1,
 		}),
-	).toThrow(
-		new Error(
-			"The token secret byte count (`entropyBytes`) must be >= 20 and < 100.",
-		),
-	);
+	).toThrow(new Error("The token secret byte count (`entropyBytes`) must be >= 20 and < 100."));
 
 	expect(() =>
 		createTokenGenerator({
 			prefixWithoutUnderscore: "a",
 			entropyBytes: 0,
 		}),
-	).toThrow(
-		new Error(
-			"The token secret byte count (`entropyBytes`) must be >= 20 and < 100.",
-		),
-	);
+	).toThrow(new Error("The token secret byte count (`entropyBytes`) must be >= 20 and < 100."));
 
 	expect(() =>
 		createTokenGenerator({
 			prefixWithoutUnderscore: "a",
 			entropyBytes: 19,
 		}),
-	).toThrow(
-		new Error(
-			"The token secret byte count (`entropyBytes`) must be >= 20 and < 100.",
-		),
-	);
+	).toThrow(new Error("The token secret byte count (`entropyBytes`) must be >= 20 and < 100."));
 
 	createTokenGenerator({
 		prefixWithoutUnderscore: "a",
@@ -184,16 +140,8 @@ test("Non-happy paths in isTokenString", () => {
 	expect(g.isTokenString("test_1234")).toBe(false);
 	expect(g.isTokenString("test_")).toBe(false);
 	expect(g.isTokenString("test_AAAABBBB")).toBe(false);
-	expect(g.isTokenString("test_R67NJs98Lvg5o42CanYRTirswpki3SAsJYbN")).toBe(
-		false,
-	);
-	expect(
-		g.isTokenString("test_R67NJs98Lvg5o42CanYRTirswpki3SAsJYbNiDwHd"),
-	).toBe(false);
-	expect(
-		g.isTokenString("test_R67NJs98Lvg5o42CanYRTirswpki3SAsJYbNiDwHdKNhiyW"),
-	).toBe(false);
-	expect(
-		g.isTokenString("test_R67NJs98Lvg5o42CanYRTirswpki3SAsJYbNiDwHdKNhiyw"),
-	).toBe(true);
+	expect(g.isTokenString("test_R67NJs98Lvg5o42CanYRTirswpki3SAsJYbN")).toBe(false);
+	expect(g.isTokenString("test_R67NJs98Lvg5o42CanYRTirswpki3SAsJYbNiDwHd")).toBe(false);
+	expect(g.isTokenString("test_R67NJs98Lvg5o42CanYRTirswpki3SAsJYbNiDwHdKNhiyW")).toBe(false);
+	expect(g.isTokenString("test_R67NJs98Lvg5o42CanYRTirswpki3SAsJYbNiDwHdKNhiyw")).toBe(true);
 });
