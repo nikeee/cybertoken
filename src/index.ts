@@ -5,7 +5,7 @@ import { getTokenPattern, parseTokenData, version } from "./parse.ts";
 /** Options for creating a new generator with {@link createTokenGenerator}. */
 export interface TokenGeneratorOptions {
 	/**
-	 * The prefix of the token without the underscore. Prefer short prefixes. Can only contain chars `a-zA-Z0-9`.
+	 * The prefix of the token without the underscore at the end. Prefer short prefixes. Can only contain chars `a-zA-Z0-9_`. Must not end with `_`.
 	 * See which prefixes GitHub uses:
 	 * https://github.blog/2021-04-05-behind-githubs-new-authentication-token-formats/
 	 */
@@ -37,7 +37,7 @@ export interface TokenGenerator {
 	isTokenString: (value: unknown) => boolean;
 }
 
-const prefixCheck = /^[a-zA-Z0-9]+$/;
+const prefixCheck = /^[a-zA-Z0-9_]+$/;
 
 /**
  * Creates a new {@link TokenGenerator}.
@@ -52,9 +52,12 @@ export function createTokenGenerator(
 		);
 	}
 
-	if (!prefixCheck.test(options.prefixWithoutUnderscore)) {
+	if (
+		!prefixCheck.test(options.prefixWithoutUnderscore) ||
+		options.prefixWithoutUnderscore.endsWith("_")
+	) {
 		throw new Error(
-			"The `prefixWithoutUnderscore` option must only contain alphanumeric characters and underscores.",
+			"The `prefixWithoutUnderscore` option must only contain alphanumeric characters and underscores. It must not end with an underscore.",
 		);
 	}
 

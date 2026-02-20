@@ -76,9 +76,6 @@ describe("`prefixWithoutUnderscore` validation", () => {
 			createTokenGenerator({ prefixWithoutUnderscore: "_" }),
 		).toThrow();
 		expect(() =>
-			createTokenGenerator({ prefixWithoutUnderscore: "foo_bar" }),
-		).toThrow();
-		expect(() =>
 			createTokenGenerator({ prefixWithoutUnderscore: "foo-bar" }),
 		).toThrow();
 		expect(() =>
@@ -107,6 +104,9 @@ describe("`prefixWithoutUnderscore` validation", () => {
 		).toThrow();
 		expect(() =>
 			createTokenGenerator({ prefixWithoutUnderscore: "foo," }),
+		).toThrow();
+		expect(() =>
+			createTokenGenerator({ prefixWithoutUnderscore: "foo_" }),
 		).toThrow();
 	});
 });
