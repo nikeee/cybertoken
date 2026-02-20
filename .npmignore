@@ -27,7 +27,7 @@ src/
 LICENSE
 *.md
 
-biome.json
+.oxfmt.json
 
 *.test.ts
 *.test.d.ts
