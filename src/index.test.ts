@@ -40,14 +40,14 @@ afterEach(() => {
 
 import { createTokenGenerator } from "./index.ts";
 
-test("Instance creation smoke test", () => {
+void test("Instance creation smoke test", () => {
 	createTokenGenerator({
 		prefixWithoutUnderscore: "test",
 	});
 });
 
-describe("`prefixWithoutUnderscore` validation", () => {
-	test("Instance creation expect prefix", () => {
+void describe("`prefixWithoutUnderscore` validation", () => {
+	void test("Instance creation expect prefix", () => {
 		// @ts-expect-error
 		expect(() => createTokenGenerator({})).toThrow(
 			new Error(
@@ -56,13 +56,13 @@ describe("`prefixWithoutUnderscore` validation", () => {
 		);
 	});
 
-	test("prefixWithoutUnderscore: allowed characters", () => {
+	void test("prefixWithoutUnderscore: allowed characters", () => {
 		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "abc" })).not.toThrow();
 		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "ABC" })).not.toThrow();
 		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "aBc123" })).not.toThrow();
 	});
 
-	test("prefixWithoutUnderscore: disallowed characters", () => {
+	void test("prefixWithoutUnderscore: disallowed characters", () => {
 		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "" })).toThrow();
 		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "_" })).toThrow();
 		expect(() => createTokenGenerator({ prefixWithoutUnderscore: "foo-bar" })).toThrow();
@@ -79,7 +79,7 @@ describe("`prefixWithoutUnderscore` validation", () => {
 	});
 });
 
-test("Instance creation expect proper byte count", () => {
+void test("Instance creation expect proper byte count", () => {
 	expect(() =>
 		createTokenGenerator({
 			prefixWithoutUnderscore: "a",
@@ -112,20 +112,20 @@ test("Instance creation expect proper byte count", () => {
 	});
 });
 
-test("Roundtrip syntax check", () => {
+void test("Roundtrip syntax check", () => {
 	const g = createTokenGenerator({ prefixWithoutUnderscore: "test" });
 	const token = g.generateToken();
 	expect(g.isTokenString(token)).toBe(true);
 });
 
-test("Snapshot + default entropyBytes", () => {
+void test("Snapshot + default entropyBytes", () => {
 	const g = createTokenGenerator({ prefixWithoutUnderscore: "test" });
 	expect(g.generateToken()).toBe("test_1sSTYGlY7FpQhFcPUWjQcyfqQkW1oTDe5D");
 	expect(g.generateToken()).toBe("test_1vEOLndpANaPr8bqfaSnP8yYUL3GZu1Kg9");
 	expect(g.generateToken()).toBe("test_1y0J9KW6DVLP11bHqeCABJHGXvaVO2ngsf");
 });
 
-test("Non-happy paths in isTokenString", () => {
+void test("Non-happy paths in isTokenString", () => {
 	const g = createTokenGenerator({ prefixWithoutUnderscore: "test" });
 
 	// @ts-expect-error

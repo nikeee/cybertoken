@@ -3,19 +3,19 @@ import { expect } from "expect";
 
 import { decode, decodeUnsafe, encode } from "./base62.ts";
 
-describe("base62 roundtrip", () => {
+void describe("base62 roundtrip", () => {
 	function encodeText(value: string): Uint8Array {
 		return new TextEncoder().encode(value);
 	}
 
-	describe("roundtrip", () => {
-		test("empty string", () => {
+	void describe("roundtrip", () => {
+		void test("empty string", () => {
 			const s = encode(new Uint8Array());
 			expect(s).toEqual("");
 			expect(decode(s)).toEqual(new Uint8Array());
 		});
 
-		test("bytes 0..255", () => {
+		void test("bytes 0..255", () => {
 			const data = new Uint8Array(256);
 			for (let i = 0; i < 256; ++i) {
 				data[i] = i;
@@ -29,7 +29,7 @@ describe("base62 roundtrip", () => {
 			expect(decode(s)).toEqual(data);
 		});
 
-		test("encode simple text", () => {
+		void test("encode simple text", () => {
 			const data = encodeText("abc");
 			const s = encode(data);
 
@@ -37,7 +37,7 @@ describe("base62 roundtrip", () => {
 			expect(decode(s)).toEqual(data);
 		});
 
-		test("encode zeros prefix", () => {
+		void test("encode zeros prefix", () => {
 			const data = new Uint8Array([0, 0, 1, 2, 3]);
 			const s = encode(data);
 
@@ -46,8 +46,8 @@ describe("base62 roundtrip", () => {
 		});
 	});
 
-	describe("parameter validation and exceptions", () => {
-		test("encode rejects non-ArrayBufferView types", () => {
+	void describe("parameter validation and exceptions", () => {
+		void test("encode rejects non-ArrayBufferView types", () => {
 			expect(() => encode("not a buffer" as unknown as Uint8Array)).toThrow(
 				new Error(
 					"`source` has non-supported type. Provide `Uint8Array` or `ArrayBufferView`.",
@@ -55,7 +55,7 @@ describe("base62 roundtrip", () => {
 			);
 		});
 
-		test("encode accepts ArrayBufferView (DataView)", () => {
+		void test("encode accepts ArrayBufferView (DataView)", () => {
 			const buf = new ArrayBuffer(3);
 			new Uint8Array(buf).set([1, 2, 3]);
 
@@ -66,13 +66,13 @@ describe("base62 roundtrip", () => {
 			expect(decode(s)).toEqual(new Uint8Array([1, 2, 3]));
 		});
 
-		test("decodeUnsafe rejects non-string input", () => {
+		void test("decodeUnsafe rejects non-string input", () => {
 			expect(() => decodeUnsafe(123 as unknown as string)).toThrow(
 				TypeError("Expected String"),
 			);
 		});
 
-		test("decode/decodeUnsafe handle invalid characters", () => {
+		void test("decode/decodeUnsafe handle invalid characters", () => {
 			expect(decodeUnsafe("!notbase62!")).toBeUndefined();
 			expect(() => decode("!notbase62!")).toThrow(new Error("Failed to decode string"));
 		});

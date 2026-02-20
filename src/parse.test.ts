@@ -3,7 +3,7 @@ import { expect } from "expect";
 
 import { parseTokenData, type TokenContents } from "./parse.ts";
 
-test("Parse token contents", () => {
+void test("Parse token contents", () => {
 	let contents: TokenContents | undefined;
 
 	contents = parseTokenData("");
