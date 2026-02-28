@@ -44,16 +44,20 @@ const prefixCheck = /^[a-zA-Z0-9_]+$/;
  * @param {TokenGeneratorOptions} options Options bag.
  */
 export function createTokenGenerator(options: TokenGeneratorOptions): TokenGenerator {
-	if (!options.prefixWithoutUnderscore) {
+	const prefix = options.prefixWithoutUnderscore;
+	if (!prefix || typeof prefix !== "string") {
 		throw new Error(
 			"The `prefixWithoutUnderscore` option is required and must not be an empty string.",
 		);
 	}
 
-	if (
-		!prefixCheck.test(options.prefixWithoutUnderscore) ||
-		options.prefixWithoutUnderscore.endsWith("_")
-	) {
+	if (prefix.length < 2 || prefix.length > 10) {
+		throw new Error(
+			"The `prefixWithoutUnderscore` option must be between 2 and 10 characters long.",
+		);
+	}
+
+	if (prefix.endsWith("_") || !prefixCheck.test(prefix)) {
 		throw new Error(
 			"The `prefixWithoutUnderscore` option must only contain alphanumeric characters and underscores. It must not end with an underscore.",
 		);

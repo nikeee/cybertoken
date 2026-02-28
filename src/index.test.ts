@@ -82,32 +82,32 @@ void describe("`prefixWithoutUnderscore` validation", () => {
 void test("Instance creation expect proper byte count", () => {
 	expect(() =>
 		createTokenGenerator({
-			prefixWithoutUnderscore: "a",
+			prefixWithoutUnderscore: "ab",
 			entropyBytes: -1,
 		}),
 	).toThrow(new Error("The token secret byte count (`entropyBytes`) must be >= 20 and < 100."));
 
 	expect(() =>
 		createTokenGenerator({
-			prefixWithoutUnderscore: "a",
+			prefixWithoutUnderscore: "ab",
 			entropyBytes: 0,
 		}),
 	).toThrow(new Error("The token secret byte count (`entropyBytes`) must be >= 20 and < 100."));
 
 	expect(() =>
 		createTokenGenerator({
-			prefixWithoutUnderscore: "a",
+			prefixWithoutUnderscore: "ab",
 			entropyBytes: 19,
 		}),
 	).toThrow(new Error("The token secret byte count (`entropyBytes`) must be >= 20 and < 100."));
 
 	createTokenGenerator({
-		prefixWithoutUnderscore: "a",
+		prefixWithoutUnderscore: "ab",
 		entropyBytes: 20,
 	});
 
 	createTokenGenerator({
-		prefixWithoutUnderscore: "a",
+		prefixWithoutUnderscore: "ab",
 		entropyBytes: 21,
 	});
 });
