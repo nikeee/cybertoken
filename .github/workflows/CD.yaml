@@ -19,7 +19,7 @@ jobs:
           node-version: 25
           cache: npm
 
-      - run: npm ci
+      - run: npm ci --no-audit
       - run: npm run test:coverage
 
   docs-build:
@@ -35,7 +35,7 @@ jobs:
           node-version: 25
           cache: npm
 
-      - run: npm ci
+      - run: npm ci --no-audit
       - run: npm run docs
 
       - uses: actions/upload-pages-artifact@v4
@@ -80,7 +80,7 @@ jobs:
           node-version: 25
           registry-url: "https://registry.npmjs.org"
           cache: npm
-      - run: npm ci
+      - run: npm ci --no-audit
       - run: npm run build
       - run: npm publish --provenance --access public
       - run: npx jsr publish
