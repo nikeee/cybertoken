@@ -10,9 +10,9 @@ void describe("base62 roundtrip", () => {
 
 	void describe("roundtrip", () => {
 		void test("empty string", () => {
-			const s = encode(new Uint8Array());
+			const s = encode(new Uint8Array(0));
 			expect(s).toEqual("");
-			expect(decode(s)).toEqual(new Uint8Array());
+			expect(decode(s)).toEqual(new Uint8Array(0));
 		});
 
 		void test("bytes 0..255", () => {

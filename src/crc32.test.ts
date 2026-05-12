@@ -9,7 +9,7 @@ void describe("crc32 smoke tests", () => {
 	}
 
 	void test("empty string", () => {
-		const data = new Uint8Array();
+		const data = new Uint8Array(0);
 		expect(crc32(data)).toEqual(new Uint8Array([0x00, 0x00, 0x00, 0x00]));
 	});
 	void test("The quick brown fox jumps over the lazy dog", () => {

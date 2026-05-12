@@ -95,7 +95,7 @@ export function decodeUnsafe(source: string): Uint8Array | undefined {
 	}
 
 	if (source.length === 0) {
-		return new Uint8Array();
+		return new Uint8Array(0);
 	}
 
 	let psz = 0;
