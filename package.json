@@ -1,6 +1,6 @@
 {
   "name": "cybertoken",
-  "version": "5.1.2",
+  "version": "5.1.3",
   "description": "A token format for APIs inspired by the GitHub's API token format.",
   "keywords": [
     "api",
