@@ -11,6 +11,10 @@
     "removeComments": true,
     "newLine": "lf",
 
+    "types": [
+      "node"
+    ],
+
     "erasableSyntaxOnly": true,
     "allowImportingTsExtensions": true,
 
