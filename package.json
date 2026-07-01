@@ -33,7 +33,7 @@
   "devDependencies": {
     "@types/node": "^25.9.1",
     "expect": "^30.4.1",
-    "oxfmt": "^0.52.0",
+    "oxfmt": "^0.57.0",
     "oxlint": "^1.67.0",
     "oxlint-tsgolint": "^0.23.0",
     "tsdown": "^0.22.1",
