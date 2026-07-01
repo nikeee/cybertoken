@@ -31,7 +31,7 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@types/node": "^25.9.1",
+    "@types/node": "^26.0.1",
     "expect": "^30.4.1",
     "oxfmt": "^0.57.0",
     "oxlint": "^1.67.0",
